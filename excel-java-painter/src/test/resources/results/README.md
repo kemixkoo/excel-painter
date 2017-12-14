@@ -1,12 +1,7 @@
 Preformance
 ###########
 
-Do paint to excel, when will spend?
-1. HSSF: 
-
-2. XSSF:
-
-3. SXSSF:
+Do paint to excel, when will spend? can check the poi_paint_pref.xlsx
 
 
 Unsolved
