@@ -1,21 +1,20 @@
 /**
  *  
  */
-package xyz.kemix.excel.painter.java.poi;
+package xyz.kemix.excel.painter.java;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 
 /**
  * @author Kemix Koo <kemix_koo@163.com>
  *
- *         Created at 2017-10-30
+ *         Created at 2017-11-07
  *
  */
 public class AbstractTester {
@@ -30,8 +29,7 @@ public class AbstractTester {
 
 	@After
 	public void cleanup() throws IOException {
-
-		FileUtils.deleteDirectory(tempDir);
+		// FileUtils.deleteDirectory(tempDir);
 	}
 
 	protected InputStream getResource(String path) {

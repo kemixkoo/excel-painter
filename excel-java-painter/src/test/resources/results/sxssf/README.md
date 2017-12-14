@@ -1,0 +1,1 @@
+When pictures are bigger, become slower and slower to generate.
