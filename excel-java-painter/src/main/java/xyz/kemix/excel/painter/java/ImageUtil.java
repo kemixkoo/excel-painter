@@ -20,6 +20,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 /**
  * @author Kemix Koo <kemix_koo@163.com>
  *
@@ -42,22 +44,28 @@ public class ImageUtil {
 	 * If scale >0, means bigger, else will be smaller.
 	 */
 	public static void scale(String srcImageFile, String outImageFile, String outFomat, int scale) throws IOException {
-		BufferedImage src = ImageIO.read(new File(srcImageFile));
-		int width = src.getWidth();
-		int height = src.getHeight();
-		if (scale > 0) { // bigger
-			width = width * scale;
-			height = height * scale;
-		} else { // smaller, when negative
-			width = width / Math.abs(scale);
-			height = height / Math.abs(scale);
-		}
-		Image image = src.getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		BufferedImage bImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		Graphics g = bImg.getGraphics();
-		g.drawImage(image, 0, 0, null);
-		g.dispose();
-		ImageIO.write(bImg, outFomat, new File(outImageFile));
+		/*
+		 * FIXME, one line to do same things.
+		 */
+		Thumbnails.of(srcImageFile).scale(scale).outputFormat(outFomat).toFile(outImageFile);
+
+		// BufferedImage src = ImageIO.read(new File(srcImageFile));
+		// int width = src.getWidth();
+		// int height = src.getHeight();
+		// if (scale > 0) { // bigger
+		// width = width * scale;
+		// height = height * scale;
+		// } else { // smaller, when negative
+		// width = width / Math.abs(scale);
+		// height = height / Math.abs(scale);
+		// }
+		// Image image = src.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		// BufferedImage bImg = new BufferedImage(width, height,
+		// BufferedImage.TYPE_INT_RGB);
+		// Graphics g = bImg.getGraphics();
+		// g.drawImage(image, 0, 0, null);
+		// g.dispose();
+		// ImageIO.write(bImg, outFomat, new File(outImageFile));
 	}
 
 	/**
@@ -70,6 +78,12 @@ public class ImageUtil {
 	 */
 	public static void scaleSize(String srcImageFile, String outImageFile, String outFomat, int height, int width,
 			boolean fill) throws IOException {
+		/*
+		 * FIXME, one line to do almost same things.
+		 */
+		// Thumbnails.of(srcImageFile).scale(width,
+		// height).outputFormat(outFomat).toFile(outImageFile);
+
 		double ratio = 0.0;
 		BufferedImage bImg = ImageIO.read(new File(srcImageFile));
 		Image scaledImg = bImg.getScaledInstance(width, height, bImg.SCALE_SMOOTH);
@@ -206,12 +220,17 @@ public class ImageUtil {
 	/**
 	 * Convert to different format file.
 	 */
-	public static void convert(String srcImageFile, String formatName, String destImageFile) throws IOException {
-		File f = new File(srcImageFile);
-		f.canRead();
-		f.canWrite();
-		BufferedImage src = ImageIO.read(f);
-		ImageIO.write(src, formatName, new File(destImageFile));
+	public static void convert(String srcImageFile, String outFomat, String outImageFile) throws IOException {
+		/*
+		 * FIXME, one line to do same things.
+		 */
+		Thumbnails.of(srcImageFile).outputFormat(outFomat).toFile(outImageFile);
+
+		// File f = new File(srcImageFile);
+		// f.canRead();
+		// f.canWrite();
+		// BufferedImage src = ImageIO.read(f);
+		// ImageIO.write(src, outFomat, new File(outImageFile));
 	}
 
 	/**
