@@ -36,7 +36,7 @@ public abstract class JavaPoiPixelPainter {
 
 	protected BufferedImage bufferedImg;
 	protected WritableRaster imgRaster;
-	protected int width, height;
+	protected int width, height, minX, minY;
 
 	protected String sheetName;
 	protected Workbook workbook;
@@ -79,8 +79,10 @@ public abstract class JavaPoiPixelPainter {
 		imgRaster = bufferedImg.getRaster();
 		imgColorModel = bufferedImg.getColorModel();
 
-		width = bufferedImg.getWidth() - bufferedImg.getMinX();
-		height = bufferedImg.getHeight() - bufferedImg.getMinY();
+		minX = bufferedImg.getMinX();
+		width = bufferedImg.getWidth();
+		minY = bufferedImg.getMinY();
+		height = bufferedImg.getHeight();
 
 		sheetName = FilenameUtils.getBaseName(imageFile.getName());
 	}
@@ -103,9 +105,9 @@ public abstract class JavaPoiPixelPainter {
 		if (workbook == null) {
 			return;
 		}
-		for (int y = 0; y < height; y++) {
-			Row row = sheet.createRow(y);
-			for (int x = 0; x < width; x++) {
+		for (int y = minY; y < height; y++) {
+			Row row = sheet.createRow(y - minY);
+			for (int x = minX; x < width; x++) {
 				Object inData = imgRaster.getDataElements(x, y, null);
 				int red = imgColorModel.getRed(inData);
 				int green = imgColorModel.getGreen(inData);
@@ -123,7 +125,7 @@ public abstract class JavaPoiPixelPainter {
 					stylesMap.put(index, style);
 				}
 
-				Cell cell = row.createCell(x);
+				Cell cell = row.createCell(x - minX);
 				cell.setCellStyle(style);
 			}
 		}
