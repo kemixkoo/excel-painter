@@ -105,17 +105,23 @@ public abstract class JavaPoiPixelPainter {
 		if (workbook == null) {
 			return;
 		}
+		Object inData;
+		int red, green, blue, alpha;
+		int index;
+		CellStyle style;
+		Cell cell;
+
 		for (int y = minY; y < height; y++) {
 			Row row = sheet.createRow(y - minY);
 			for (int x = minX; x < width; x++) {
-				Object inData = imgRaster.getDataElements(x, y, null);
-				int red = imgColorModel.getRed(inData);
-				int green = imgColorModel.getGreen(inData);
-				int blue = imgColorModel.getBlue(inData);
-				int alpha = imgColorModel.getAlpha(inData);
+				inData = imgRaster.getDataElements(x, y, null);
+				red = imgColorModel.getRed(inData);
+				green = imgColorModel.getGreen(inData);
+				blue = imgColorModel.getBlue(inData);
+				alpha = imgColorModel.getAlpha(inData);
 
-				int index = getColorIndex(red, green, blue, alpha);
-				CellStyle style = stylesMap.get(index);
+				index = getColorIndex(red, green, blue, alpha);
+				style = stylesMap.get(index);
 				if (style == null) {
 					stylesNum++;
 					style = workbook.createCellStyle();
@@ -125,15 +131,12 @@ public abstract class JavaPoiPixelPainter {
 					stylesMap.put(index, style);
 				}
 
-				Cell cell = row.createCell(x - minX);
+				cell = row.createCell(x - minX);
 				cell.setCellStyle(style);
 			}
 		}
 	}
 
-	/**
-	 * FIXME, If want to keep the original colors, need change here
-	 */
 	protected int getColorIndex(int red, int green, int blue, int alpha) {
 		int index = colorIndexedMap.addColor(red, green, blue, alpha);
 		return index;

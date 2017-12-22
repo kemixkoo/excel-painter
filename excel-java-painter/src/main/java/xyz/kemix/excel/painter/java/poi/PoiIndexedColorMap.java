@@ -51,6 +51,9 @@ public class PoiIndexedColorMap implements IndexedColorMap {
 		return addColor(rgbArr[1], rgbArr[2], rgbArr[3], rgbArr[0]);
 	}
 
+	/**
+	 * FIXME, If want to keep the original colors, need change here
+	 */
 	private byte unify(int v) {
 		return (byte) ((v / 10) * 10 + 5);
 	}
