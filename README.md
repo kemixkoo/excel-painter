@@ -13,3 +13,8 @@ From the API [SpreadsheetVersion](https://svn.apache.org/repos/asf/poi/trunk/src
 
 So, only POI XSSF and SXSSF can do some painting with pixel. POI HSSF and JXL can't at all.
 
+# Demo
+
+The demo icons are in [excel-java-painter/src/test/resources/icons](https://github.com/kemixkoo/excel-painter/tree/master/excel-java-painter/src/test/resources/icons)
+
+The result of excel files are in [excel-java-painter/src/test/resources/results](https://github.com/kemixkoo/excel-painter/tree/master/excel-java-painter/src/test/resources/results)
